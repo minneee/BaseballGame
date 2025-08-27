@@ -58,16 +58,18 @@ class BaseballGame {
         ball += 1
       }
     }
-    if strike == 3 {
+
+    switch (strike, ball) {
+    case (3, 0):
       print("✅ 정답입니다!")
       return true
-    } else if ball == 0 && strike == 0 {
+    case (0, 0):
       print("❌ Nothing")
-    } else if ball == 0 {
-      print("\(strike) 스트라이크")
-    } else if strike == 0 {
+    case (0, _):
       print("\(ball) 볼")
-    } else {
+    case (_, 0):
+      print("\(strike) 스트라이크")
+    default:
       print("\(strike) 스트라이크 \(ball) 볼")
     }
 
