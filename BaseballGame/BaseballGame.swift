@@ -6,7 +6,8 @@
 //
 
 class BaseballGame {
-  private var answerNumber: [Int] = []
+  private var answerNumber = [Int]()
+  var count = 0
 
   // 게임 시작
   func startGame() {
@@ -33,6 +34,7 @@ class BaseballGame {
   private func createUserGuess() {
     while true {
       print("\n숫자를 입력하세요")
+      count += 1
 
       // 사용자 입력 받기
       let input = readLine() ?? ""
