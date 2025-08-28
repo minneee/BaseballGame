@@ -17,9 +17,13 @@ class BaseballGame {
 
 
   private func createNumber() -> [Int] {
-    var numbers = Array(1...9)
+    var numbers = Array(0...9)
     numbers.shuffle()
     answerNumber = Array(numbers.prefix(3))
+    if answerNumber[0] == 0 {
+      answerNumber.remove(at: 0)
+      answerNumber.append(numbers[3])
+    }
 
     return answerNumber
   }
