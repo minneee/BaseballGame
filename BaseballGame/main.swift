@@ -9,4 +9,6 @@ import Foundation
 
 //게임 생성
 let baseballGame = BaseballGame()
-baseballGame.startGame()
+let gameMenu = GameMenu(baseballGame: baseballGame)
+gameMenu.selectGameMenu()
+

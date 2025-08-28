@@ -8,6 +8,7 @@
 class BaseballGame {
   private var answerNumber: [Int] = []
 
+  // 게임 시작
   func startGame() {
     let answerNumber = createNumber()
     print("정답: \(answerNumber)")
@@ -15,7 +16,7 @@ class BaseballGame {
     createUserGuess()
   }
 
-
+  // 정답 숫자 생성
   private func createNumber() -> [Int] {
     var numbers = Array(0...9)
     numbers.shuffle()
@@ -28,18 +29,22 @@ class BaseballGame {
     return answerNumber
   }
 
+  // 사용자 입력 (숫자 추측)
   private func createUserGuess() {
     while true {
       print("\n숫자를 입력하세요")
+
+      // 사용자 입력 받기
       let input = readLine() ?? ""
       let inputNumber = input.compactMap { $0.wholeNumberValue }
 
+      // 입력 값에 따른 작업 수행
       if inputNumber.isEmpty || input.count != inputNumber.count {
         print("⛔️ 올바르지 않은 입력값입니다 (문자 입력 불가)")
       } else if inputNumber.count != 3 {
         print("⛔️ 올바르지 않은 입력값입니다 (세자리 숫자만 입력 가능)")
-      } else if inputNumber.contains(0) {
-        print("⛔️ 올바르지 않은 입력값입니다 (0 입력 불가)")
+      } else if inputNumber[0] == 0 {
+        print("⛔️ 올바르지 않은 입력값입니다 (첫번째 자리에 0 입력 불가)")
       } else if Set(inputNumber).count != 3 {
         print("⛔️ 올바르지 않은 입력값입니다 (중복 숫자 입력 불가)")
       } else {
@@ -51,6 +56,7 @@ class BaseballGame {
     }
   }
 
+  // 스트라이크, 볼 판별
   private func judgeNumber(_ inputNumber: [Int]) -> Bool {
     var ball = 0
     var strike = 0
