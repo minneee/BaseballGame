@@ -41,7 +41,7 @@ class GameMenu {
     switch option {
     case .startGame:
       baseballGame.startGame()
-      gameRecordManager.addRecords(baseballGame.count)
+      gameRecordManager.addRecords(baseballGame.readCount())
     case .showRecord:
       gameRecordManager.showRecords()
     case .exit:

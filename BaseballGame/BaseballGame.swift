@@ -6,12 +6,18 @@
 //
 
 class BaseballGame {
+  private let inputValidator: InputValidator
   private var answerNumber = [Int]()
-  var count = 0
+  private var count = 0
+
+  init(inputValidator: InputValidator) {
+    self.inputValidator = inputValidator
+  }
 
   // 게임 시작
   func startGame() {
     let answerNumber = createNumber()
+    resetCount()
     print("정답: \(answerNumber)")
     print("⚾️ 게임을 시작합니다")
     createUserGuess()
@@ -30,6 +36,14 @@ class BaseballGame {
     return answerNumber
   }
 
+  func readCount() -> Int {
+    return count
+  }
+
+  func resetCount() {
+    count = 0
+  }
+
   // 사용자 입력 (숫자 추측)
   private func createUserGuess() {
     while true {
@@ -38,23 +52,16 @@ class BaseballGame {
 
       // 사용자 입력 받기
       let input = readLine() ?? ""
-      let inputNumber = input.compactMap { $0.wholeNumberValue }
+      let validationResult = inputValidator.validate(input)
 
-      // 입력 값에 따른 작업 수행
-      if inputNumber.isEmpty || input.count != inputNumber.count {
-        print("⛔️ 올바르지 않은 입력값입니다 (문자 입력 불가)")
-      } else if inputNumber.count != 3 {
-        print("⛔️ 올바르지 않은 입력값입니다 (세자리 숫자만 입력 가능)")
-      } else if inputNumber.first == 0 {
-        print("⛔️ 올바르지 않은 입력값입니다 (첫번째 자리에 0 입력 불가)")
-      } else if Set(inputNumber).count != 3 {
-        print("⛔️ 올바르지 않은 입력값입니다 (중복 숫자 입력 불가)")
-      } else {
-        if judgeNumber(inputNumber) {
-          break
+      switch validationResult {
+      case .success(let number):
+        if judgeNumber(number) {
+          return
         }
+      case .failure(let error):
+        print(error.description)
       }
-
     }
   }
 
