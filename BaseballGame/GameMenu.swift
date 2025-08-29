@@ -12,12 +12,14 @@ enum MenuOption: String {
 }
 
 class GameMenu {
-  let baseballGame: BaseballGame
+  let inputValidator: InputValidator
+  let numberGenerator: NumberGenerator
   let gameRecordManager: GameRecordManager
 
 
-  init(baseballGame: BaseballGame, gameRecordManager: GameRecordManager) {
-    self.baseballGame = baseballGame
+  init(inputValidator: InputValidator, numberGenerator: NumberGenerator, gameRecordManager: GameRecordManager) {
+    self.inputValidator = inputValidator
+    self.numberGenerator = numberGenerator
     self.gameRecordManager = gameRecordManager
   }
 
@@ -40,8 +42,9 @@ class GameMenu {
   private func handleOption(_ option: MenuOption?) -> Bool {
     switch option {
     case .startGame:
+      let baseballGame = BaseballGame(inputValidator: inputValidator, numberGenerator: numberGenerator)
       baseballGame.startGame()
-      gameRecordManager.addRecords(baseballGame.count)
+      gameRecordManager.addRecords(baseballGame.readCount())
     case .showRecord:
       gameRecordManager.showRecords()
     case .exit:
