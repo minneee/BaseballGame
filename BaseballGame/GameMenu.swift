@@ -13,10 +13,12 @@ enum MenuOption: String {
 
 class GameMenu {
   let baseballGame: BaseballGame
-  var gameCount = [Int]()
+  let gameRecordManager: GameRecordManager
 
-  init(baseballGame: BaseballGame) {
+
+  init(baseballGame: BaseballGame, gameRecordManager: GameRecordManager) {
     self.baseballGame = baseballGame
+    self.gameRecordManager = gameRecordManager
   }
 
   // 사용자 입력 (메뉴 선택)
@@ -39,9 +41,9 @@ class GameMenu {
     switch option {
     case .startGame:
       baseballGame.startGame()
-      gameCount.append(baseballGame.count)
+      gameRecordManager.addRecords(baseballGame.count)
     case .showRecord:
-      showRecord()
+      gameRecordManager.showRecords()
     case .exit:
       print("게임을 종료합니다")
       return false
@@ -50,18 +52,5 @@ class GameMenu {
     }
     print()
     return true
-  }
-
-  // 게임 기록 보기
-  private func showRecord() {
-    print("< 게임 기록보기 >")
-    guard !gameCount.isEmpty else {
-      print("❎ 기록이 없습니다.")
-      return
-    }
-
-    for (index, count) in gameCount.enumerated() {
-      print("\(index + 1)번째 게임: 시도 횟수 - \(count)")
-    }
   }
 }
