@@ -6,10 +6,10 @@
 //
 
 struct InputValidator {
-  func validate(_ input: String) -> Result<[Int], ValidationError> {
+  func validate(_ input: String, _ numbersCount: Int) -> Result<[Int], ValidationError> {
     do {
       let number = try convertToIntArray(input)
-      try checkLength(number)
+      try checkLength(number, numbersCount)
       try checkFirstNumber(number)
       try checkDuplicateNumbers(number)
 
@@ -29,9 +29,9 @@ struct InputValidator {
     return inputNumber
   }
 
-  private func checkLength(_ input: [Int]) throws {
-    guard input.count == 3 else {
-      throw ValidationError.wrongLength
+  private func checkLength(_ input: [Int], _ numbersCount: Int) throws {
+    guard input.count == numbersCount else {
+      throw ValidationError.wrongLength(count: numbersCount)
     }
   }
 

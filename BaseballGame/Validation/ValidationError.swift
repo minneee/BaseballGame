@@ -8,7 +8,7 @@
 
 enum ValidationError: Error {
   case notNumber
-  case wrongLength
+  case wrongLength(count: Int)
   case firstNumberZero
   case duplicateNumbers
   case otherError
@@ -17,8 +17,8 @@ enum ValidationError: Error {
     switch self {
     case .notNumber:
       "⛔️ 올바르지 않은 입력값입니다 (문자 입력 불가)"
-    case .wrongLength:
-      "⛔️ 올바르지 않은 입력값입니다 (세자리 숫자만 입력 가능)"
+    case .wrongLength(let count):
+      "⛔️ 올바르지 않은 입력값입니다 (숫자 \(count)개만 입력 가능)"
     case .firstNumberZero:
       "⛔️ 올바르지 않은 입력값입니다 (첫번째 자리에 0 입력 불가)"
     case .duplicateNumbers:

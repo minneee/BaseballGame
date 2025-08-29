@@ -7,52 +7,36 @@
 
 class BaseballGame {
   private let inputValidator: InputValidator
-  private var answerNumber = [Int]()
-  private var count = 0
+  private let numberGenerator: NumberGenerator
+  private let answerNumber: [Int]
+  private var guessCount = 0
 
-  init(inputValidator: InputValidator) {
+  init(inputValidator: InputValidator, numberGenerator: NumberGenerator) {
     self.inputValidator = inputValidator
+    self.numberGenerator = numberGenerator
+    self.answerNumber = numberGenerator.create()
   }
 
   // 게임 시작
   func startGame() {
-    let answerNumber = createNumber()
-    resetCount()
     print("정답: \(answerNumber)")
     print("⚾️ 게임을 시작합니다")
     createUserGuess()
   }
 
-  // 정답 숫자 생성
-  private func createNumber() -> [Int] {
-    var numbers = Array(0...9)
-    numbers.shuffle()
-    answerNumber = Array(numbers.prefix(3))
-    if answerNumber[0] == 0 {
-      answerNumber.remove(at: 0)
-      answerNumber.append(numbers[3])
-    }
-
-    return answerNumber
-  }
-
   func readCount() -> Int {
-    return count
-  }
-
-  func resetCount() {
-    count = 0
+    return guessCount
   }
 
   // 사용자 입력 (숫자 추측)
   private func createUserGuess() {
     while true {
       print("\n숫자를 입력하세요")
-      count += 1
+      guessCount += 1
 
       // 사용자 입력 받기
       let input = readLine() ?? ""
-      let validationResult = inputValidator.validate(input)
+      let validationResult = inputValidator.validate(input, numberGenerator.numbersCount)
 
       switch validationResult {
       case .success(let number):
@@ -79,7 +63,7 @@ class BaseballGame {
     }
 
     switch (strike, ball) {
-    case (3, 0):
+    case (numberGenerator.numbersCount, 0):
       print("✅ 정답입니다!")
       return true
     case (0, 0):
