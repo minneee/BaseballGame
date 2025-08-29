@@ -45,7 +45,7 @@ class BaseballGame {
         print("⛔️ 올바르지 않은 입력값입니다 (문자 입력 불가)")
       } else if inputNumber.count != 3 {
         print("⛔️ 올바르지 않은 입력값입니다 (세자리 숫자만 입력 가능)")
-      } else if inputNumber[0] == 0 {
+      } else if inputNumber.first == 0 {
         print("⛔️ 올바르지 않은 입력값입니다 (첫번째 자리에 0 입력 불가)")
       } else if Set(inputNumber).count != 3 {
         print("⛔️ 올바르지 않은 입력값입니다 (중복 숫자 입력 불가)")
