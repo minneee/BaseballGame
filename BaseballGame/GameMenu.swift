@@ -60,8 +60,8 @@ class GameMenu {
       return
     }
 
-    for i in 0..<gameCount.count {
-      print("\(i + 1)번째 게임: 시도 횟수 - \(gameCount[i])")
+    for (index, count) in gameCount.enumerated() {
+      print("\(index + 1)번째 게임: 시도 횟수 - \(count)")
     }
   }
 }
