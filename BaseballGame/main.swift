@@ -8,8 +8,6 @@
 import Foundation
 
 //게임 생성
-let baseballGame = BaseballGame()
-let gameRecordManager = GameRecordManager()
-let gameMenu = GameMenu(baseballGame: baseballGame, gameRecordManager: gameRecordManager)
+let gameMenu = GameMenu(inputValidator: InputValidator(), numberGenerator: NumberGenerator(), gameRecordManager: GameRecordManager())
 gameMenu.selectGameMenu()
 
