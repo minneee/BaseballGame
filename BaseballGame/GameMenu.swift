@@ -5,17 +5,16 @@
 //  Created by 김민희 on 8/28/25.
 //
 
-enum MenuOption: String {
-  case startGame = "1"
-  case showRecord = "2"
-  case exit = "3"
-}
-
 class GameMenu {
   private let inputValidator: InputValidator
   private let numberGenerator: NumberGenerator
   private let gameRecordManager: GameRecordManager
 
+  enum MenuOption: String {
+    case startGame = "1"
+    case showRecord = "2"
+    case exit = "3"
+  }
 
   init(inputValidator: InputValidator, numberGenerator: NumberGenerator, gameRecordManager: GameRecordManager) {
     self.inputValidator = inputValidator
