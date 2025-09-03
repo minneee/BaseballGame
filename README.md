@@ -16,7 +16,7 @@
 ## 🛠️ 기술 스택 (Tech Stack)
 
 ### 언어 (Language)
-- **Swift**: 
+- **Swift**
 
 ### 주요 설계 원칙 (Key Design Principles)
 - **객체 지향 프로그래밍 (OOP)**
