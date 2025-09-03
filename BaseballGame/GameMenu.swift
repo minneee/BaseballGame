@@ -12,9 +12,9 @@ enum MenuOption: String {
 }
 
 class GameMenu {
-  let inputValidator: InputValidator
-  let numberGenerator: NumberGenerator
-  let gameRecordManager: GameRecordManager
+  private let inputValidator: InputValidator
+  private let numberGenerator: NumberGenerator
+  private let gameRecordManager: GameRecordManager
 
 
   init(inputValidator: InputValidator, numberGenerator: NumberGenerator, gameRecordManager: GameRecordManager) {
