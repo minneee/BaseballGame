@@ -5,20 +5,22 @@
 //  Created by 김민희 on 8/26/25.
 //
 
-class BaseballGame {
-  private let inputValidator: InputValidator
-  private let numberGenerator: NumberGenerator
+struct BaseballGame {
+  private let inputValidator: InputValidatable
+  private let numberGenerator: NumberGeneratable
   private let answerNumber: [Int]
   private var guessCount = 0
+  private let numbersCount: Int
 
-  init(inputValidator: InputValidator, numberGenerator: NumberGenerator) {
+  init(inputValidator: InputValidatable, numberGenerator: NumberGeneratable, numbersCount: Int = 3) {
     self.inputValidator = inputValidator
     self.numberGenerator = numberGenerator
-    self.answerNumber = numberGenerator.create()
+    self.answerNumber = numberGenerator.create(numbersCount)
+    self.numbersCount = numbersCount
   }
 
   // 게임 시작
-  func startGame() {
+  mutating func startGame() {
     print("정답: \(answerNumber)")
     print("⚾️ 게임을 시작합니다")
     createUserGuess()
@@ -29,14 +31,14 @@ class BaseballGame {
   }
 
   // 사용자 입력 (숫자 추측)
-  private func createUserGuess() {
+  private mutating func createUserGuess() {
     while true {
       print("\n숫자를 입력하세요")
       guessCount += 1
 
       // 사용자 입력 받기
       let input = readLine() ?? ""
-      let validationResult = inputValidator.validate(input, numberGenerator.numbersCount)
+      let validationResult = inputValidator.validate(input, numbersCount)
 
       switch validationResult {
       case .success(let number):
@@ -63,7 +65,7 @@ class BaseballGame {
     }
 
     switch (strike, ball) {
-    case (numberGenerator.numbersCount, 0):
+    case (numbersCount, 0):
       print("✅ 정답입니다!")
       return true
     case (0, 0):
