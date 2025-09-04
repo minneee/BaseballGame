@@ -5,7 +5,7 @@
 //  Created by 김민희 on 8/29/25.
 //
 
-class GameRecordManager {
+class GameRecordManager: GameRecordManaging {
   private var gameRecords = [Int]()
 
   func addRecords(_ count: Int) {

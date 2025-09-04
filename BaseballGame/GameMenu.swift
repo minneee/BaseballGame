@@ -5,19 +5,18 @@
 //  Created by 김민희 on 8/28/25.
 //
 
-enum MenuOption: String {
-  case startGame = "1"
-  case showRecord = "2"
-  case exit = "3"
-}
+struct GameMenu {
+  private let inputValidator: InputValidatable
+  private let numberGenerator: NumberGeneratable
+  private let gameRecordManager: GameRecordManaging
 
-class GameMenu {
-  let inputValidator: InputValidator
-  let numberGenerator: NumberGenerator
-  let gameRecordManager: GameRecordManager
+  enum MenuOption: String {
+    case startGame = "1"
+    case showRecord = "2"
+    case exit = "3"
+  }
 
-
-  init(inputValidator: InputValidator, numberGenerator: NumberGenerator, gameRecordManager: GameRecordManager) {
+  init(inputValidator: InputValidatable, numberGenerator: NumberGeneratable, gameRecordManager: GameRecordManaging) {
     self.inputValidator = inputValidator
     self.numberGenerator = numberGenerator
     self.gameRecordManager = gameRecordManager
@@ -42,7 +41,7 @@ class GameMenu {
   private func handleOption(_ option: MenuOption?) -> Bool {
     switch option {
     case .startGame:
-      let baseballGame = BaseballGame(inputValidator: inputValidator, numberGenerator: numberGenerator)
+      var baseballGame = BaseballGame(inputValidator: inputValidator, numberGenerator: numberGenerator)
       baseballGame.startGame()
       gameRecordManager.addRecords(baseballGame.readCount())
     case .showRecord:

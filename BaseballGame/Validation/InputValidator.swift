@@ -5,7 +5,7 @@
 //  Created by 김민희 on 8/29/25.
 //
 
-struct InputValidator {
+struct InputValidator: InputValidatable {
   func validate(_ input: String, _ numbersCount: Int) -> Result<[Int], ValidationError> {
     do {
       let number = try convertToIntArray(input)
