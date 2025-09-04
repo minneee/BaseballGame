@@ -59,16 +59,41 @@ class BaseballGame {
 }
 ```
 
-### 3\. 불변성(Immutability)을 통한 상태 관리
+### 3\. 의존성 역전의 원칙 (Dependency Inversion Principle, DIP)
+
+의존성은 세부적인 구현이 아닌 추상화에 의존해야한다는 원칙에 따라 세부 구현 객체에 의존하는 것이 아니라 프로토콜을 만들어서 **프로토콜에 의존**하여 세부적인 구현 내용에 의존하지 않도록 수정하였습니다.
+
+```swift
+struct BaseballGame {
+  //타입을 프로토콜로 정의
+  private let inputValidator: InputValidatable
+  private let numberGenerator: NumberGeneratable
+  private let answerNumber: [Int]
+  private var guessCount = 0
+  private let numbersCount: Int
+
+  init(inputValidator: InputValidatable, numberGenerator: NumberGeneratable, numbersCount: Int = 3) {
+    self.inputValidator = inputValidator
+    self.numberGenerator = numberGenerator
+    self.answerNumber = numberGenerator.create(numbersCount)
+    self.numbersCount = numbersCount
+  }
+
+  //생략
+}
+```
+
+### 4\. 불변성(Immutability)을 통한 상태 관리
 
 한 게임의 정답(`answerNumber`)은 절대 바뀌면 안 됩니다. `var` 대신 `let`을 사용하여 정답을 불변 상수로 만들고, 객체가 생성될 때 한 번만 할당하도록 강제했습니다.
 
-### 4\. 규칙을 단 한 곳에서 관리 (Single Source of Truth)
+### 5\. 규칙을 단 한 곳에서 관리 (Single Source of Truth)
 
 코드 곳곳에 흩어져 있던 하드코딩된 숫자 `3`을 `numbersCount`라는 프로퍼티로 한곳에서 관리하도록 변경했습니다. 덕분에 `numbersCount` 값만 바꾸면 게임의 정답이 4자리, 5자리 게임으로 쉽게 확장될 수 있는 유연한 구조를 갖추게 되었습니다.
 
 -----
 
 ## 📔 트러블 슈팅 TIL
-[코드 리팩토링과정 블로그](https://0minnie0.tistory.com/60)
+[코드 리팩토링과정 블로그 1](https://0minnie0.tistory.com/60)
+[코드 리팩토링과정 블로그 2](https://0minnie0.tistory.com/63)
 
